@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Androiod Drawer Demo</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="../android.drawer.js"></script>
+    <script>
+        var drawer = null;
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            drawer = new AndroidDrawer({
+                drawer: document.getElementById("drawer"),
+                content: document.getElementById("content")
+            });
+        });
+
+        function openDrawer() {
+            drawer.open();
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <div id="drawer">
+        <h1>Menu</h1>
+        <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+
+    <div id="content">
+        <h1>Android Style Drawer</h1>
+        <p style="width:80%">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p>An Android style side drawer built off a rework of <a target="_blank" href="http://github.com/jakiestfu/Snap.js">Snap.JS</a></p>
+        <a href="#" onClick="openDrawer()">Open</a>
+    </div>
+</body>
+</html>

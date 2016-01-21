@@ -1,0 +1,32 @@
+{
+  "name": "android.drawer.js",
+  "version": "1.9.2",
+  "description": "A Library for creating Android like side menu drawers in javascript",
+  "main": "android.drawer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davethomas11/AndroidDrawer.JS.git"
+  },
+  "keywords": [
+    "mobile",
+    "shelfs",
+    "nav",
+    "menu",
+    "mobile",
+    "side",
+    "menu"
+  ],
+  "author": "Dave Thomas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davethomas11/AndroidDrawer.JS/issues"
+  },
+  "homepage": "https://github.com/davethomas11/AndroidDrawer.JS#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.11.0"
+  }
+}
