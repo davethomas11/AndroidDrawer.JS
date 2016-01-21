@@ -4,5 +4,33 @@
   "author": "daveanthonythomas",
   "license": "MIT",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "homepage": "https://github.com/davethomas11/AndroidDrawer.JS",
+  "authors": [
+    "davethomas11 <dave@assemblyco.com>"
+  ],
+  "description": "Android style menu drawer with angular and snap.js based on Angular Snap.JS",
+  "main": "android.drawer+ng.min.js",
+  "moduleType": [],
+  "keywords": [
+    "android",
+    "nav",
+    "drawer"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "android.drawer.js",
+    "android.drawer.angular.js",
+    "demo",
+    "gruntfile.js",
+    "package.json",
+    "README.md",
+    ".gitignore",
+    "*.iml",
+    ".idea"
+  ]
 }
