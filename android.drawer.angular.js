@@ -33,6 +33,7 @@ angular.module('snap')
         };
     }]);
 
+
 angular.module('snap')
     .directive('snapContent', ['SnapConstructor', 'snapRemote', function (SnapConstructor, snapRemote) {
         'use strict';
@@ -104,7 +105,7 @@ angular.module('snap')
     }]);
 
 angular.module('snap')
-    .directive('snapDrawer', ['snapRemote'], function (snapRemote) {
+    .directive('snapDrawer', ['snapRemote', function (snapRemote) {
         'use strict';
         return {
             restrict: 'AE',
@@ -129,7 +130,7 @@ angular.module('snap')
 
             }
         };
-    });
+    }]);
 
 
 
@@ -199,7 +200,7 @@ angular.module('snap')
         };
 
         this.$get = ['$window', function($window) {
-            var S = constructor || $window.Snap;
+            var S = constructor || $window.AndroidDrawer;
             if(angular.isUndefined(S)) {
                 throw new Error('Snap constructor is not defined. Make sure ' +
                     'window.Snap is defined or supply your own with ' +
@@ -220,10 +221,9 @@ angular.module('snap')
 
         this.$get = ['$q', function($q) {
 
-            var snapperStore = {}
+            var snapperStore = { pendingSettings: false }
                 , DEFAULT_SNAPPER_ID = '__DEFAULT_SNAPPER_ID__'
                 , exports = {}
-                , pendingSettings = null
                 , initStoreForId
                 , resolveInStoreById;
 
@@ -242,7 +242,7 @@ angular.module('snap')
 
                 if (snapperStore.pendingSettings) {
                     snapper.settings(snapperStore.pendingSettings);
-                    snapperStore.pendingSettings = null;
+                    snapperStore.pendingSettings = false;
                 }
 
                 if(!snapperStore.hasOwnProperty(id)) {

@@ -485,19 +485,19 @@
         };
 
         var init = function (opts) {
-            if (opts.drawer) {
-                utils.deepExtend(settings, opts);
-                cache.vendor = utils.vendor();
 
-                if (settings.overlay) {
-                    createOverlay();
-                }
+            utils.deepExtend(settings, opts);
+            cache.vendor = utils.vendor();
 
-                if (settings.drawer) {
-                    settings.maxPosition = settings.drawer.getBoundingClientRect().width;
-                    action.drag.listen();
-                }
+            if (settings.overlay && settings.content) {
+                createOverlay();
             }
+
+            if (settings.drawer) {
+                settings.maxPosition = settings.drawer.getBoundingClientRect().width;
+                action.drag.listen();
+            }
+
         };
 
         function createOverlay() {
@@ -510,7 +510,7 @@
             overlay.style["display"] = "none";
             overlay.style["top"] = 0;
             overlay.style["left"] = 0;
-            //settings.content.style["position"] = "relative";
+            settings.content.style["position"] = "relative";
             utils.klass.add(overlay, "android-drawer-overlay");
             settings.content.appendChild(overlay);
             cache.overlay = overlay;
@@ -592,6 +592,7 @@
         };
 
         this.settings = function (opts) {
+
             utils.deepExtend(settings, opts);
 
             if (settings.drawer) {
@@ -602,9 +603,9 @@
                 action.drag.listen();
             }
 
-            if (settings.overlay) {
+            if (settings.overlay && !cache.overlay) {
                 createOverlay();
-            } else {
+            } else if (!settings.overlay) {
                 destroyOverlay();
             }
         };

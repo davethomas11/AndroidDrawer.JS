@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Androiod Drawer Demo</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="../android.drawer.js"></script>
+    <script src="../android.drawer.angular.js"></script>
+    <script>
+        angular.module('demo', ['snap']).run();
+
+        function openDrawer() {
+            angular.module('snap')
+        }
+    </script>
+</head>
+
+<body ng-app="demo">
+
+<snap-drawer>
+    <h1>Menu</h1>
+    <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</snap-drawer>
+
+<snap-content>
+    <h1>Android Style Drawer</h1>
+    <p style="width:80%">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <p>An Android style side drawer built off a rework of <a target="_blank" href="http://github.com/jakiestfu/Snap.js">Snap.JS</a></p>
+
+    <a href="#" snap-toggle>Open</a>
+</snap-content>
+</body>
+</html>
