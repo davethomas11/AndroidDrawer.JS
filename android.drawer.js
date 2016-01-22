@@ -26,7 +26,8 @@
             slideIntent: 40, // degrees
             minDragDistance: 5,
             overlay: true,
-            overlayOpacity: 0.55
+            overlayOpacity: 0.55,
+            edgeThreshold: 0.15 // Percentage of edge of screen that drag will work on
         };
 
         var cache = {
@@ -120,6 +121,8 @@
                         return;
                     }
 
+
+
                     if (!settings.hyperextensible) {
                         if (n === settings.maxPosition || n > settings.maxPosition) {
                             n = settings.maxPosition;
@@ -153,6 +156,17 @@
                         cache.overlay.style["opacity"] = settings.overlayOpacity * (n / settings.maxPosition);
                         cache.overlay.style["display"] = "block";
                     }
+
+                    cache.currentX = n;
+                }
+            },
+            resize: function(e) {
+                if (settings.drawer) {
+                    settings.maxPosition = settings.drawer.getBoundingClientRect().width;
+                }
+
+                if (cache.currentX > 0) {
+                    action.translate.easeTo(settings.maxPosition);
                 }
             },
             drag: {
@@ -172,7 +186,11 @@
                         utils.events.addEvent(cache.overlay, utils.eventType('up'), action.drag.endDrag);
                     }
 
+                    utils.events.addEvent(win, 'resize', action.resize);
+
                     cache.listening = true;
+
+
                 },
                 stopListening: function () {
                     utils.events.removeEvent(settings.drawer, utils.eventType('down'), action.drag.startDrag);
@@ -188,18 +206,26 @@
                         utils.events.removeEvent(cache.overlay, utils.eventType('up'), action.drag.endDrag);
                     }
 
+                    utils.events.removeEvent(win, 'resize', action.resize);
+
                     cache.listening = false;
                 },
                 startDrag: function (e) {
                     // No drag on ignored elements
                     var target = e.target ? e.target : e.srcElement;
+                    var dragX = utils.page('X', e);
+
+                    //Todo: currently only support left side drawer
+                    if (target === settings.content && dragX > cache.maxLeftPull) {
+                        return;
+                    }
 
                     utils.dispatchEvent('start');
                     settings.drawer.style[cache.vendor + 'Transition'] = '';
                     cache.isDragging = true;
                     cache.hasIntent = null;
                     cache.intentChecked = false;
-                    cache.startDragX = utils.page('X', e);
+                    cache.startDragX = dragX;
                     cache.startDragY = utils.page('Y', e);
                     cache.dragWatchers = {
                         current: 0,
@@ -489,6 +515,10 @@
             utils.deepExtend(settings, opts);
             cache.vendor = utils.vendor();
 
+            if (settings.content && settings.edgeThreshold) {
+                setContentThreshold();
+            }
+
             if (settings.overlay && settings.content) {
                 createOverlay();
             }
@@ -499,6 +529,14 @@
             }
 
         };
+
+        function setContentThreshold() {
+
+            var width = settings.content.getBoundingClientRect().width;
+            cache.maxLeftPull = width * settings.edgeThreshold;
+            cache.maxRightPull = width - cache.maxLeftPull;
+
+        }
 
         function createOverlay() {
             var overlay = doc.createElement("div");
@@ -607,6 +645,10 @@
                 createOverlay();
             } else if (!settings.overlay) {
                 destroyOverlay();
+            }
+
+            if (settings.content && settings.edgeThreshold) {
+                setContentThreshold();
             }
         };
 
