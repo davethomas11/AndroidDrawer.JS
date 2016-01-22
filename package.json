@@ -1,6 +1,6 @@
 {
   "name": "android.drawer.js",
-  "version": "1.9.2",
+  "version": "0.0.1",
   "description": "A Library for creating Android like side menu drawers in javascript",
   "main": "android.drawer.js",
   "scripts": {
