@@ -168,6 +168,10 @@
                 if (cache.currentX > 0) {
                     action.translate.easeTo(settings.maxPosition);
                 }
+
+                if (settings.content) {
+                    setContentThreshold();
+                }
             },
             drag: {
                 listen: function () {
@@ -215,9 +219,18 @@
                     var target = e.target ? e.target : e.srcElement;
                     var dragX = utils.page('X', e);
 
-                    //Todo: currently only support left side drawer
-                    if (target === settings.content && dragX > cache.maxLeftPull) {
-                        return;
+                    cache.parentIsContent = utils.parentUntil(target, settings.content) ? true : false;
+                    cache.parentIsDrawer = utils.parentUntil(target, settings.drawer) ? true : false;
+
+                    cache.dragIsValidLeftStart = true;
+                    cache.dragIsValidRightStart = true;
+
+                    if ((target === settings.content || cache.parentIsContent) && dragX > cache.maxLeftPull) {
+                        cache.dragIsValidLeftStart = false;
+                    }
+
+                    if ((target === settings.content || cache.parentIsContent) && dragX < cache.maxRightPull) {
+                        cache.dragIsValidRightStart = false;
                     }
 
                     utils.dispatchEvent('start');
@@ -258,6 +271,12 @@
                             openingLeft = absoluteTranslation > 0,
                             translateTo = whileDragX,
                             diff;
+
+
+                        /*if (!cache.dragIsValidLeftStart) {
+
+                            return;
+                        }*/
 
                         // Shown no intent already
                         if ((cache.intentChecked && !cache.hasIntent)) {
@@ -360,7 +379,8 @@
 
                         // Tap Close
                         if (cache.dragWatchers.current === 0 && translated !== 0 && settings.tapToClose &&
-                            e.target !== settings.drawer) {
+                            e.target !== settings.drawer && !cache.parentIsDrawer) {
+
                             utils.dispatchEvent('close');
                             utils.events.prevent(e);
                             action.translate.easeTo(0);
@@ -507,6 +527,18 @@
                         e.returnValue = false;
                     }
                 }
+            },
+            parentUntil: function(el, attr) {
+                var isStr = typeof attr === 'string';
+                while (el.parentNode) {
+                    if (isStr && el.getAttribute && el.getAttribute(attr)){
+                        return el;
+                    } else if(!isStr && el === attr){
+                        return el;
+                    }
+                    el = el.parentNode;
+                }
+                return null;
             }
         };
 
@@ -535,6 +567,7 @@
             var width = settings.content.getBoundingClientRect().width;
             cache.maxLeftPull = width * settings.edgeThreshold;
             cache.maxRightPull = width - cache.maxLeftPull;
+            cache.contentWidth = width;
 
         }
 
