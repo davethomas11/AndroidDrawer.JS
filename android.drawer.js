@@ -578,6 +578,7 @@
             overlay.style["background-color"] = "#000";
             overlay.style["opacity"] = "0";
             overlay.style["position"] = "fixed";
+            overlay.style["z-index"] = 999;
             overlay.style["display"] = "none";
             overlay.style["top"] = 0;
             overlay.style["left"] = 0;
