@@ -577,7 +577,7 @@
             overlay.style["width"] = "100%";
             overlay.style["background-color"] = "#000";
             overlay.style["opacity"] = "0";
-            overlay.style["position"] = "absolute";
+            overlay.style["position"] = "fixed";
             overlay.style["display"] = "none";
             overlay.style["top"] = 0;
             overlay.style["left"] = 0;
