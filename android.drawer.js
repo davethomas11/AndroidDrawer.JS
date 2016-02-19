@@ -305,6 +305,8 @@
                             cache.intentChecked = true;
                         }
 
+
+
                         if (
                             (settings.minDragDistance >= Math.abs(thePageX - cache.startDragX)) || // Has user met minimum drag distance?
                             (cache.hasIntent === false)
@@ -369,7 +371,10 @@
                                 }
                             };
                         }
+
                         action.translate.x(translateTo + translated);
+
+
                     }
                 },
                 endDrag: function (e) {

@@ -264,7 +264,7 @@ angular.module('snap')
             exports.isregistered = function(id) {
                 id = id || DEFAULT_SNAPPER_ID;
                 return snapperStore.hasOwnProperty(id);
-            }
+            };
 
             exports.settings = function(opts, id) {
                 id = id || DEFAULT_SNAPPER_ID;
